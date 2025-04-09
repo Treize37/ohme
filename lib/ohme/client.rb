@@ -10,7 +10,7 @@ module Ohme
     # @param api_key [String] The API key for authentication
     # @param base_url [String] The base URL for the API
     # @param timeout [Integer] The timeout for requests in seconds
-    # @param domain [String] The domain for the API
+    # @param client_name [String] The client_name for the API
     # @param version [String] The version of the API
     def initialize
       Ohme::Configuration.validate!
@@ -59,7 +59,7 @@ module Ohme
     # Builds the headers for the request
     def build_headers
       {
-        'client-name' => Ohme::Configuration.domain,
+        'client-name' => Ohme::Configuration.client_name,
         'client-secret' => Ohme::Configuration.api_key,
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'

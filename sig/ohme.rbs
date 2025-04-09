@@ -10,7 +10,7 @@ module Ohme
     attr_accessor api_key: String?
     attr_accessor base_url: String?
     attr_accessor timeout: Integer?
-    attr_accessor domain: String?
+    attr_accessor client_name: String?
     attr_accessor version: String?
   end
 

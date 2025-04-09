@@ -9,7 +9,7 @@ RSpec.describe Ohme::Configuration do
     described_class.configure do |config|
       config.api_key = nil
       config.base_url = nil
-      config.domain = nil
+      config.client_name = nil
       config.version = nil
       config.timeout = nil
     end
@@ -20,14 +20,14 @@ RSpec.describe Ohme::Configuration do
       described_class.configure do |config|
         config.api_key = 'test_api_key'
         config.base_url = 'https://api.example.com'
-        config.domain = 'test_domain'
+        config.client_name = 'test_client_name'
         config.version = 'v1'
         config.timeout = 60
       end
 
       expect(described_class.api_key).to eq('test_api_key')
       expect(described_class.base_url).to eq('https://api.example.com')
-      expect(described_class.domain).to eq('test_domain')
+      expect(described_class.client_name).to eq('test_client_name')
       expect(described_class.version).to eq('v1')
       expect(described_class.timeout).to eq(60)
     end
@@ -39,7 +39,7 @@ RSpec.describe Ohme::Configuration do
         described_class.configure do |config|
           config.api_key = 'test_api_key'
           config.base_url = 'https://api.example.com'
-          config.domain = 'test_domain'
+          config.client_name = 'test_client_name'
           config.version = 'v1'
         end
 
@@ -51,7 +51,7 @@ RSpec.describe Ohme::Configuration do
       it 'raises an error' do
         described_class.configure do |config|
           config.base_url = 'https://api.example.com'
-          config.domain = 'test_domain'
+          config.client_name = 'test_client_name'
           config.version = 'v1'
         end
 
@@ -64,7 +64,7 @@ RSpec.describe Ohme::Configuration do
         described_class.configure do |config|
           config.api_key = 'test_api_key'
           config.base_url = nil
-          config.domain = 'test_domain'
+          config.client_name = 'test_client_name'
           config.version = 'v1'
         end
 
@@ -72,7 +72,7 @@ RSpec.describe Ohme::Configuration do
       end
     end
 
-    context 'when the domain is missing' do
+    context 'when the client_name is missing' do
       it 'raises an error' do
         described_class.configure do |config|
           config.api_key = 'test_api_key'
@@ -80,7 +80,7 @@ RSpec.describe Ohme::Configuration do
           config.version = nil
         end
 
-        expect { described_class.validate! }.to raise_error('Domain is missing. Please configure Ohme::Configuration.domain.')
+        expect { described_class.validate! }.to raise_error('client_name is missing. Please configure Ohme::Configuration.client_name.')
       end
     end
   end
