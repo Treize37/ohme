@@ -7,7 +7,7 @@ module Ohme
     def self.configure: () { (config: Configuration) -> void } -> void
     def self.validate!: () -> void
 
-    attr_accessor api_key: String?
+    attr_accessor client_secret: String?
     attr_accessor base_url: String?
     attr_accessor timeout: Integer?
     attr_accessor client_name: String?

@@ -7,7 +7,7 @@ RSpec.describe Ohme::Configuration do
   before do
     # Reset configuration before each test
     described_class.configure do |config|
-      config.api_key = nil
+      config.client_secret = nil
       config.base_url = nil
       config.client_name = nil
       config.version = nil
@@ -18,14 +18,14 @@ RSpec.describe Ohme::Configuration do
   describe '.configure' do
     it 'allows setting configuration attributes' do
       described_class.configure do |config|
-        config.api_key = 'test_api_key'
+        config.client_secret = 'test_client_secret'
         config.base_url = 'https://api.example.com'
         config.client_name = 'test_client_name'
         config.version = 'v1'
         config.timeout = 60
       end
 
-      expect(described_class.api_key).to eq('test_api_key')
+      expect(described_class.client_secret).to eq('test_client_secret')
       expect(described_class.base_url).to eq('https://api.example.com')
       expect(described_class.client_name).to eq('test_client_name')
       expect(described_class.version).to eq('v1')
@@ -37,7 +37,7 @@ RSpec.describe Ohme::Configuration do
     context 'when the configuration is valid' do
       it 'does not raise an error' do
         described_class.configure do |config|
-          config.api_key = 'test_api_key'
+          config.client_secret = 'test_client_secret'
           config.base_url = 'https://api.example.com'
           config.client_name = 'test_client_name'
           config.version = 'v1'
@@ -47,7 +47,7 @@ RSpec.describe Ohme::Configuration do
       end
     end
 
-    context 'when the API key is missing' do
+    context 'when the client secret is missing' do
       it 'raises an error' do
         described_class.configure do |config|
           config.base_url = 'https://api.example.com'
@@ -55,14 +55,14 @@ RSpec.describe Ohme::Configuration do
           config.version = 'v1'
         end
 
-        expect { described_class.validate! }.to raise_error('API key is missing. Please configure Ohme::Configuration.api_key.')
+        expect { described_class.validate! }.to raise_error('client_secret key is missing. Please configure Ohme::Configuration.client_secret.')
       end
     end
 
     context 'when the base URL is missing' do
       it 'raises an error' do
         described_class.configure do |config|
-          config.api_key = 'test_api_key'
+          config.client_secret = 'test_client_secret'
           config.base_url = nil
           config.client_name = 'test_client_name'
           config.version = 'v1'
@@ -75,7 +75,7 @@ RSpec.describe Ohme::Configuration do
     context 'when the client_name is missing' do
       it 'raises an error' do
         described_class.configure do |config|
-          config.api_key = 'test_api_key'
+          config.client_secret = 'test_client_secret'
           config.base_url = 'https://api.example.com'
           config.version = nil
         end

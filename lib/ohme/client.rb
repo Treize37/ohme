@@ -7,7 +7,7 @@ module Ohme
   # Client for interacting with the Ohme API
   class Client
     # Initializes the client with the configuration
-    # @param api_key [String] The API key for authentication
+    # @param client_secret [String] The API key for authentication
     # @param base_url [String] The base URL for the API
     # @param timeout [Integer] The timeout for requests in seconds
     # @param client_name [String] The client_name for the API
@@ -60,7 +60,7 @@ module Ohme
     def build_headers
       {
         'client-name' => Ohme::Configuration.client_name,
-        'client-secret' => Ohme::Configuration.api_key,
+        'client-secret' => Ohme::Configuration.client_secret,
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'
       }

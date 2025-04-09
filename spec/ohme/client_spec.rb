@@ -10,7 +10,7 @@ RSpec.describe Ohme::Client do
   before do
     # Configure the Ohme::Configuration before each test
     Ohme::Configuration.configure do |config|
-      config.api_key = 'test_api_key'
+      config.client_secret = 'test_client_secret'
       config.client_name = 'test_client_name'
     end
   end
