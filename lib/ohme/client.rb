@@ -7,13 +7,9 @@ module Ohme
   # Client for interacting with the Ohme API
   class Client
     # Initializes the client with the configuration
-    # @param client_secret [String] The API key for authentication
-    # @param base_url [String] The base URL for the API
-    # @param timeout [Integer] The timeout for requests in seconds
-    # @param client_name [String] The client_name for the API
-    # @param version [String] The version of the API
-    def initialize
-      Ohme::Configuration.validate!
+    def initialize(configuration = Ohme::Configuration.new)
+      @configuration = configuration
+      @configuration.validate!
     end
 
     # Performs a GET request
@@ -46,21 +42,21 @@ module Ohme
         headers: build_headers,
         params: options[:params],
         body: options[:body]&.to_json,
-        timeout: Ohme::Configuration.timeout
+        timeout: @configuration.timeout
       ).run
 
       handle_response(response)
     end
 
     def build_url(endpoint)
-      "#{Ohme::Configuration.base_url}#{Ohme::Configuration.version}/#{endpoint}"
+      "#{@configuration.base_url}#{@configuration.version}/#{endpoint}"
     end
 
     # Builds the headers for the request
     def build_headers
       {
-        'client-name' => Ohme::Configuration.client_name,
-        'client-secret' => Ohme::Configuration.client_secret,
+        'client-name' => @configuration.client_name,
+        'client-secret' => @configuration.client_secret,
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'
       }

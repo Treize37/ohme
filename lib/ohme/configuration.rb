@@ -2,25 +2,34 @@
 
 module Ohme
   # Configuration of the Ohme API client gem.
-  module Configuration
-    class << self
-      attr_accessor :client_secret, :base_url, :timeout, :client_name, :version
+  class Configuration
+    attr_accessor :base_url, :client_name, :client_secret, :timeout, :version
 
-      # Initializes the configuration with default values.
-      def configure
-        @base_url = 'https://api-ohme.oneheart.fr/api/' # Nouvelle URL de base
-        @version = 'v1' # Version par défaut
-        @timeout = 30 # Timeout par défaut en secondes
-        yield self if block_given?
-      end
+    # Initializes the configuration with default values.
+    def initialize
+      @base_url = 'https://api-ohme.oneheart.fr/api/'
+      @version = 'v1'
+      @timeout = 30
+      yield self if block_given?
+    end
 
-      # Validates the configuration values.
-      def validate!
-        raise 'client_secret key is missing. Please configure Ohme::Configuration.client_secret.' unless @client_secret
-        raise 'Base URL is missing. Please configure Ohme::Configuration.base_url.' unless @base_url
-        raise 'client_name is missing. Please configure Ohme::Configuration.client_name.' unless @client_name
-        raise 'Version is missing. Please configure Ohme::Configuration.version.' unless @version
-      end
+    def configure
+      yield(self) if block_given?
+    end
+
+    # Validates the configuration values.
+    def validate!
+      error_on('client_name') unless @client_name
+      error_on('client_secret') unless @client_secret
+    end
+
+    private
+
+    def error_on(attribute)
+      raise(
+        "#{attribute} is missing. " \
+          "Please configure Ohme::Configuration.#{attribute}."
+      )
     end
   end
 end

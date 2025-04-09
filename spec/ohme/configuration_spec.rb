@@ -3,85 +3,73 @@
 require 'spec_helper'
 require_relative '../../lib/ohme/configuration'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Ohme::Configuration do
-  before do
-    # Reset configuration before each test
-    described_class.configure do |config|
-      config.client_secret = nil
-      config.base_url = nil
-      config.client_name = nil
-      config.version = nil
-      config.timeout = nil
-    end
-  end
-
-  describe '.configure' do
-    it 'allows setting configuration attributes' do
-      described_class.configure do |config|
-        config.client_secret = 'test_client_secret'
+  describe '.new' do
+    let(:conf) do
+      described_class.new do |config|
         config.base_url = 'https://api.example.com'
         config.client_name = 'test_client_name'
-        config.version = 'v1'
+        config.client_secret = 'test_client_secret'
         config.timeout = 60
+        config.version = 'v1'
+      end
+    end
+
+    describe 'setting configuration attributes' do
+      it 'sets the client_secret attribute correctly' do
+        expect(conf.client_secret).to eq('test_client_secret')
       end
 
-      expect(described_class.client_secret).to eq('test_client_secret')
-      expect(described_class.base_url).to eq('https://api.example.com')
-      expect(described_class.client_name).to eq('test_client_name')
-      expect(described_class.version).to eq('v1')
-      expect(described_class.timeout).to eq(60)
+      it 'sets the base_url attribute correctly' do
+        expect(conf.base_url).to eq('https://api.example.com')
+      end
+
+      it 'sets the client_name attribute correctly' do
+        expect(conf.client_name).to eq('test_client_name')
+      end
+
+      it 'sets the version attribute correctly' do
+        expect(conf.version).to eq('v1')
+      end
+
+      it 'sets the timeout attribute correctly' do
+        expect(conf.timeout).to eq(60)
+      end
     end
   end
 
-  describe '.validate!' do
-    context 'when the configuration is valid' do
+  describe '#validate!' do
+    let(:conf) { described_class.new }
+
+    context 'when all required attributes are set' do
       it 'does not raise an error' do
-        described_class.configure do |config|
-          config.client_secret = 'test_client_secret'
-          config.base_url = 'https://api.example.com'
-          config.client_name = 'test_client_name'
-          config.version = 'v1'
-        end
+        conf.client_name = 'test_client_name'
+        conf.client_secret = 'test_client_secret'
 
-        expect { described_class.validate! }.not_to raise_error
+        expect { conf.validate! }.not_to raise_error
       end
     end
 
-    context 'when the client secret is missing' do
+    context 'when client_name is missing' do
       it 'raises an error' do
-        described_class.configure do |config|
-          config.base_url = 'https://api.example.com'
-          config.client_name = 'test_client_name'
-          config.version = 'v1'
-        end
+        error_message = 'client_name is missing. ' \
+                          'Please configure Ohme::Configuration.client_name.'
+        conf.client_secret = 'test_client_secret'
 
-        expect { described_class.validate! }.to raise_error('client_secret key is missing. Please configure Ohme::Configuration.client_secret.')
+        expect { conf.validate! }.to raise_error(error_message)
       end
     end
 
-    context 'when the base URL is missing' do
+    context 'when client_secret is missing' do
       it 'raises an error' do
-        described_class.configure do |config|
-          config.client_secret = 'test_client_secret'
-          config.base_url = nil
-          config.client_name = 'test_client_name'
-          config.version = 'v1'
-        end
+        error_message = 'client_secret is missing. ' \
+                          'Please configure Ohme::Configuration.client_secret.'
+        conf.client_name = 'test_client_name'
 
-        expect { described_class.validate! }.to raise_error('Base URL is missing. Please configure Ohme::Configuration.base_url.')
-      end
-    end
-
-    context 'when the client_name is missing' do
-      it 'raises an error' do
-        described_class.configure do |config|
-          config.client_secret = 'test_client_secret'
-          config.base_url = 'https://api.example.com'
-          config.version = nil
-        end
-
-        expect { described_class.validate! }.to raise_error('client_name is missing. Please configure Ohme::Configuration.client_name.')
+        expect { conf.validate! }.to raise_error(error_message)
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

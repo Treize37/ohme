@@ -6,16 +6,16 @@ require 'typhoeus'
 require_relative '../../lib/ohme/client'
 require_relative '../../lib/ohme/configuration'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Ohme::Client do
-  before do
-    # Configure the Ohme::Configuration before each test
-    Ohme::Configuration.configure do |config|
+  let(:configuration) do
+    Ohme::Configuration.new do |config|
       config.client_secret = 'test_client_secret'
       config.client_name = 'test_client_name'
     end
   end
 
-  let(:client) { described_class.new }
+  let(:client) { described_class.new(configuration) }
 
   describe '#get' do
     it 'sends a GET request to the correct endpoint' do
@@ -77,3 +77,4 @@ RSpec.describe Ohme::Client do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
