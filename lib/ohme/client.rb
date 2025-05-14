@@ -64,7 +64,6 @@ module Ohme
 
     # Handle the API response
     def handle_response(response)
-      p "Timeout: #{response.timed_out?}"
       if response.timed_out?
         raise 'Request timed out. Please check your network connection or increase the timeout.'
       elsif response.success?
