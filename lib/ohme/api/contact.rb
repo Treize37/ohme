@@ -11,14 +11,14 @@ module Ohme
       # @param params [Hash] Optional query parameters
       # @return [Hash] The response from the API
       def index(params = {})
-        @client.get('contacts', params: params)
+        @client.get('contacts', params)
       end
 
       # Creates a new contact
       # @param body [Hash] The contact data to be sent in the request body
       # @return [Hash] The response from the API
       def create(body)
-        @client.post('contacts', body: body)
+        @client.post('contacts', body)
       end
 
       # Updates a contact by ID
@@ -26,7 +26,7 @@ module Ohme
       # @param body [Hash] The contact data to be updated
       # @return [Hash] The response from the API
       def update(id, body)
-        @client.put("contacts/#{id}", body: body)
+        @client.put("contacts/#{id}", body)
       end
 
       # Fetches a contact by ID
