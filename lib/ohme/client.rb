@@ -41,7 +41,7 @@ module Ohme
         method: method,
         headers: build_headers,
         params: options[:params],
-        body: options[:body],
+        body: options[:body]&.to_json,
         timeout: @configuration.timeout
       ).run
 
