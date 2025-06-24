@@ -10,7 +10,7 @@ RSpec.describe Ohme::API::Contact do
 
   describe '#index' do
     it 'fetches the list of contacts' do
-      expect(client).to receive(:get).with('contacts', params: {}).and_return({ 'contacts' => [] })
+      expect(client).to receive(:get).with('contacts', {}).and_return({ 'contacts' => [] })
       response = contact_api.index
       expect(response).to eq({ 'contacts' => [] })
     end
@@ -19,7 +19,7 @@ RSpec.describe Ohme::API::Contact do
   describe '#create' do
     it 'creates a new contact' do
       contact_data = { name: 'John Doe', email: 'john.doe@example.com' }
-      expect(client).to receive(:post).with('contacts', body: contact_data).and_return({ 'id' => '123' })
+      expect(client).to receive(:post).with('contacts', contact_data).and_return({ 'id' => '123' })
       response = contact_api.create(contact_data)
       expect(response).to eq({ 'id' => '123' })
     end
@@ -28,7 +28,7 @@ RSpec.describe Ohme::API::Contact do
   describe '#update' do
     it 'updates a contact by ID' do
       contact_data = { name: 'Jane Doe' }
-      expect(client).to receive(:put).with('contacts/123', body: contact_data).and_return({ 'id' => '123', 'name' => 'Jane Doe' })
+      expect(client).to receive(:put).with('contacts/123', contact_data).and_return({ 'id' => '123', 'name' => 'Jane Doe' })
       response = contact_api.update('123', contact_data)
       expect(response).to eq({ 'id' => '123', 'name' => 'Jane Doe' })
     end

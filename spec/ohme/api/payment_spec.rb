@@ -9,7 +9,7 @@ RSpec.describe Ohme::API::Payment do
 
   describe '#index' do
     it 'fetches the list of payments' do
-      expect(client).to receive(:get).with('payments', params: {}).and_return({ 'payments' => [] })
+      expect(client).to receive(:get).with('payments', {}).and_return({ 'payments' => [] })
       response = payment_api.index
       expect(response).to eq({ 'payments' => [] })
     end
@@ -18,7 +18,7 @@ RSpec.describe Ohme::API::Payment do
   describe '#create' do
     it 'creates a new payment' do
       payment_data = { amount: 100, currency: 'USD' }
-      expect(client).to receive(:post).with('payments', body: payment_data).and_return({ 'id' => '123' })
+      expect(client).to receive(:post).with('payments', payment_data).and_return({ 'id' => '123' })
       response = payment_api.create(payment_data)
       expect(response).to eq({ 'id' => '123' })
     end
@@ -27,7 +27,7 @@ RSpec.describe Ohme::API::Payment do
   describe '#update' do
     it 'updates a payment by ID' do
       payment_data = { amount: 150 }
-      expect(client).to receive(:put).with('payments/123', body: payment_data).and_return({ 'id' => '123', 'amount' => 150 })
+      expect(client).to receive(:put).with('payments/123', payment_data).and_return({ 'id' => '123', 'amount' => 150 })
       response = payment_api.update('123', payment_data)
       expect(response).to eq({ 'id' => '123', 'amount' => 150 })
     end
