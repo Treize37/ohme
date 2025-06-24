@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ohme (0.1.10)
+    ohme (0.2.0)
       typhoeus (>= 1.4)
 
 GEM
