@@ -10,8 +10,8 @@ module Ohme
     # @yield [config] Optional block to configure the client
     # @return [Ohme::Configuration] A new instance of the configuration
     def initialize
-      @base_url = 'https://api-ohme.oneheart.fr/api/'
-      @version = 'v1'
+      @base_url = "https://api-ohme.oneheart.fr/api/"
+      @version = "v1"
       @timeout = 30
       yield self if block_given?
     end
@@ -28,8 +28,8 @@ module Ohme
     #
     # @raise [RuntimeError] if required values are missing
     def validate!
-      error_on('client_name') unless @client_name
-      error_on('client_secret') unless @client_secret
+      error_on("client_name") unless @client_name
+      error_on("client_secret") unless @client_secret
     end
 
     private

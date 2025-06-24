@@ -6,11 +6,11 @@ A Ruby connector for the Ohme API, a tool for integrating with the Ohme CRM plat
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add ohme
+    bundle add ohme
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install ohme
+    gem install ohme
 
 ## Usage
 
@@ -24,7 +24,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Treize37/ohme. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/Treize37/ohme/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/Treize37/ohme>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/Treize37/ohme/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
