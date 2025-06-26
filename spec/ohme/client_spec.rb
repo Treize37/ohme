@@ -20,7 +20,7 @@ RSpec.describe Ohme::Client do
   describe '#get' do
     it 'sends a GET request to the correct endpoint' do
       Typhoeus.stub('https://api-ohme.oneheart.fr/api/v1/test_endpoint')
-              .and_return(Typhoeus::Response.new(code: 200, body: "{ 'success':true }"))
+              .and_return(Typhoeus::Response.new(code: 200, body: '{ "success": true }'))
 
       response = client.get('test_endpoint')
 
@@ -31,7 +31,7 @@ RSpec.describe Ohme::Client do
   describe '#post' do
     it 'sends a POST request with the correct body' do
       Typhoeus.stub('https://api-ohme.oneheart.fr/api/v1/test_endpoint')
-              .and_return(Typhoeus::Response.new(code: 201, body: "{ 'created':true }"))
+              .and_return(Typhoeus::Response.new(code: 201, body: '{ "created": true }'))
 
       response = client.post('test_endpoint', { key: 'value' })
 
@@ -42,7 +42,7 @@ RSpec.describe Ohme::Client do
   describe '#put' do
     it 'sends a PUT request with the correct body' do
       Typhoeus.stub('https://api-ohme.oneheart.fr/api/v1/test_endpoint')
-              .and_return(Typhoeus::Response.new(code: 200, body: "{ 'updated':true }"))
+              .and_return(Typhoeus::Response.new(code: 200, body: '{ "updated": true }'))
 
       response = client.put('test_endpoint', { key: 'updated_value' })
 
