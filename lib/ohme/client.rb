@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "typhoeus"
-require_relative "configuration"
+require 'typhoeus'
+require_relative 'configuration'
 
 module Ohme
   # Client for interacting with the Ohme API
@@ -85,10 +85,10 @@ module Ohme
     # @return [Hash] The headers to be sent with the request
     def build_headers
       {
-        "client-name" => @configuration.client_name,
-        "client-secret" => @configuration.client_secret,
-        "Content-Type" => "application/json",
-        "Accept" => "application/json"
+        'client-name' => @configuration.client_name,
+        'client-secret' => @configuration.client_secret,
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
       }
     end
 
@@ -98,7 +98,7 @@ module Ohme
     # @return [Hash, nil] The parsed response or nil for DELETE requests
     def handle_response(response)
       if response.timed_out?
-        raise "Request timed out. Please check your network connection or increase the timeout."
+        raise 'Request timed out. Please check your network connection or increase the timeout.'
       elsif response.success?
         # Return nil for DELETE requests with no body
         return nil if response.body.nil? || response.body.strip.empty?
