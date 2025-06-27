@@ -14,7 +14,33 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+### Configuration Initialization
+
+First, configure the Ohme client with your credentials and settings:
+
+```ruby
+require 'ohme'
+require 'json'
+
+config = Ohme::Configuration.new do |c|
+  c.client_name = 'your_client_name'
+  c.client_secret = 'your_client_secret'
+end
+```
+
+Then, initialize the client using your configuration:
+
+```ruby
+client = Ohme::Client.new(config)
+```
+
+You can now use the API endpoints. For example, to list contacts:
+
+```ruby
+contact_api = Ohme::API::Contact.new(client)
+contacts = contact_api.index
+puts contacts
+```
 
 ## Development
 
