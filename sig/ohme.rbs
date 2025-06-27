@@ -1,4 +1,37 @@
+# frozen_string_literal: true
+
 module Ohme
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  module Configuration
+    def self.configure: () { (config: Configuration) -> void } -> void
+    def self.validate!: () -> void
+
+    attr_accessor client_secret: String?
+    attr_accessor base_url: String?
+    attr_accessor timeout: Integer?
+    attr_accessor client_name: String?
+    attr_accessor version: String?
+  end
+
+  class Client
+    def initialize: () -> void
+
+    def get: (String, params: Hash[String, untyped]?) -> Hash[String, untyped]?
+    def post: (String, body: Hash[String, untyped]?) -> Hash[String, untyped]?
+    def put: (String, body: Hash[String, untyped]?) -> Hash[String, untyped]?
+    def delete: (String, params: Hash[String, untyped]?) -> nil
+  end
+
+  module API
+    class Contact
+      def initialize: (Ohme::Client?) -> void
+
+      def index: (params: Hash[String, untyped]?) -> Hash[String, untyped]?
+      def create: (body: Hash[String, untyped]) -> Hash[String, untyped]?
+      def update: (String, body: Hash[String, untyped]) -> Hash[String, untyped]?
+      def show: (String) -> Hash[String, untyped]?
+      def delete: (String) -> nil
+    end
+  end
 end
